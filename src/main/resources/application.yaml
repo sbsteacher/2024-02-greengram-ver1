@@ -1,3 +1,7 @@
+# custom property (절대경로 Absolute Path)
+file:
+  directory: D:/2024-02/download/greengram_ver1
+
 # mybatis setting
 mybatis:
   mapper-locations: xml/**/*.xml

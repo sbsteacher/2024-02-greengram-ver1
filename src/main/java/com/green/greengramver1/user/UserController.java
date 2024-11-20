@@ -30,7 +30,7 @@ public class UserController {
                                         , @RequestPart MultipartFile pic
     ) {
         log.info("UserInsReq: {}, file: {}", p, pic.getOriginalFilename());
-        int result = 0;
+        int result = service.postSignUp(pic, p);
         return ResultResponse.<Integer>builder()
                 .resultMessage("회원가입 완료")
                 .resultData(result)
