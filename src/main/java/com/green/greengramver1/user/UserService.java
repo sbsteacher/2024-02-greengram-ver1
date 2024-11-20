@@ -16,6 +16,13 @@ public class UserService {
 
     public int postSignUp(MultipartFile pic, UserInsReq p) {
         //프로필 이미지 파일 처리
+        String savedPicName = myFileUtils.makeRandomFileName(pic);
+
+        int userId = 1; //user를 insert 후에 얻을 수 있다.
+        // user/${userId}/${savedPicName}
+
+        String path = myFileUtils.makeFolders(String.format("user/%d", userId));
+        log.info("path: {}", path);
 
         return 1;
     }
