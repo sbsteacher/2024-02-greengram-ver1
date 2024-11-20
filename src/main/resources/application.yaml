@@ -6,6 +6,10 @@ file:
 mybatis:
   mapper-locations: xml/**/*.xml
 
+server:
+  servlet:
+    context-path: /api
+
 spring:
   # DB setting
   datasource:
