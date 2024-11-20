@@ -19,7 +19,7 @@ public class UserService {
 
     public int postSignUp(MultipartFile pic, UserInsReq p) {
         //프로필 이미지 파일 처리
-        String savedPicName = myFileUtils.makeRandomFileName(pic);
+        String savedPicName = pic != null ? myFileUtils.makeRandomFileName(pic) : null;
 
         String hashedPassword = BCrypt.hashpw(p.getUpw(), BCrypt.gensalt());
         log.info("hashedPassword: {}", hashedPassword);
@@ -28,14 +28,15 @@ public class UserService {
 
         int result = mapper.insUser(p);
 
-        long userId = p.getUserId(); //userId를 insert 후에 얻을 수 있다.
+        if(pic == null) {
+            return result;
+        }
         // user/${userId}/${savedPicName}
-
+        long userId = p.getUserId(); //userId를 insert 후에 얻을 수 있다.
         String middlePath = String.format("user/%d", userId);
         myFileUtils.makeFolders(middlePath);
         log.info("middlePath: {}", middlePath);
         String filePath = String.format("%s/%s", middlePath, savedPicName);
-
         try {
             myFileUtils.transferTo(pic, filePath);
         } catch (IOException e) {

@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("user")
+@RequestMapping("api/user")
 @Tag(name = "유저", description = "회원가입, 로그인")
 public class UserController {
     private final UserService service;
@@ -27,9 +27,9 @@ public class UserController {
     @PostMapping("sign-up")
     @Operation(summary = "회원 가입")
     public ResultResponse<Integer> signUp(@RequestPart UserInsReq p
-                                        , @RequestPart MultipartFile pic
+                                        , @RequestPart(required = false) MultipartFile pic
     ) {
-        log.info("UserInsReq: {}, file: {}", p, pic.getOriginalFilename());
+        log.info("UserInsReq: {}, file: {}", p, pic != null ? pic.getOriginalFilename() : null);
         int result = service.postSignUp(pic, p);
         return ResultResponse.<Integer>builder()
                 .resultMessage("회원가입 완료")

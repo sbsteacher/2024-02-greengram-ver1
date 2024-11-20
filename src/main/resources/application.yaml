@@ -6,9 +6,10 @@ file:
 mybatis:
   mapper-locations: xml/**/*.xml
 
-server:
-  servlet:
-    context-path: /api
+# Base URL setting
+#server:
+#  servlet:
+#    context-path: /api
 
 spring:
   # DB setting
