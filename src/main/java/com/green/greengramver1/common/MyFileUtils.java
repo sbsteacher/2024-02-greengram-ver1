@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.UUID;
 
 @Slf4j
@@ -27,8 +28,14 @@ public class MyFileUtils {
     // D:/2024-02/download/greengram_ver1/ddd/aaa
     //디렉토리 생성
     public String makeFolders(String path) {
-        File file = new File(uploadPath, path);
-        file.mkdirs();
+        File file = new File(uploadPath,  path);
+        // static 아님  >>  객체화하고 주소값.(file.)으로 호출했기 때문에
+        // 리턴타입은 boolean  >>  if()안에서 호출했기 때문에
+        // 파라미터는 없음   >>  호출 때 인자를 보내지 않았기 때문에
+        // 메소드명은  >>  exists였다.
+        if(!file.exists()) {
+            file.mkdirs();
+        }
         return file.getAbsolutePath();
     }
 
@@ -49,7 +56,8 @@ public class MyFileUtils {
     }
 
     public String makeRandomFileName(MultipartFile file) {
-        return makeRandomFileName(file.getOriginalFilename());
+        String originalFileName = file.getOriginalFilename();
+        return makeRandomFileName(originalFileName);
     }
 
     //파일을 원하는 경로에 저장
@@ -58,13 +66,4 @@ public class MyFileUtils {
         mf.transferTo(file);
     }
 
-}
-
-
-class Test {
-    public static void main(String[] args) {
-        MyFileUtils myFileUtils = new MyFileUtils("C:/temp");
-        String randomFileName = myFileUtils.makeRandomFileName("sdvkljsdfajkldsfjkldsfljk.png");
-        System.out.println(randomFileName);
-    }
 }

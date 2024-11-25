@@ -9,9 +9,28 @@
              , contents = #{contents}
              , location = #{location}
     </insert>
+    <!--
+        (사진은 무시하세요), feed_pics테이블은 무시
+
+        feed_id, 작성자userid값, 작성자닉네임, 작성자uid, 작성자프로필사진파일명, contents, location, created_at값을
+        정렬은 최신글이 가장 위에 오도록
+        페이징 처리
+        가져오는 쿼리문 작성
+    -->
+    <select id="selFeedList">
+        SELECT A.feed_id AS feedId, A.contents, A.location, A.created_at AS createdAt
+             , B.user_id AS writerId
+             , if(B.nick_name IS NULL, B.uid, B.nick_name) AS writerNm
+             , B.pic AS writerPic
+          FROM feed A
+         INNER JOIN user B
+            ON A.writer_user_id = B.user_id
+         ORDER BY A.feed_id DESC
+         LIMIT #{startIdx}, #{size}
+    </select>
 
 
-
+    <!-- ///////////////////////////////// feed_pics //////////////////////////// -->
 
 
     <insert id="insFeedPic">
@@ -19,5 +38,11 @@
            SET feed_id = #{feedId}
              , pic = #{pic}
     </insert>
+
+    <select id="selFeedPicList">
+        SELECT pic
+          FROM feed_pics
+         WHERE feed_id = #{feedId}
+    </select>
 
 </mapper>

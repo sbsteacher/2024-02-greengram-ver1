@@ -6,7 +6,6 @@ import com.green.greengramver1.user.model.UserSignInRes;
 import com.green.greengramver1.user.model.UserSignUpReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +34,7 @@ public class UserService {
             return result;
         }
 
-        //저장 위치 만든다.
+        // 저장 위치 만든다.
         // middlePath = user/${userId}
         // filePath = user/${userId}/${savedPicName}
         long userId = p.getUserId(); //userId를 insert 후에 얻을 수 있다.
