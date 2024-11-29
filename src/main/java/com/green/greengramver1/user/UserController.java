@@ -1,14 +1,11 @@
 package com.green.greengramver1.user;
 
 import com.green.greengramver1.common.model.ResultResponse;
-import com.green.greengramver1.user.model.UserSignInReq;
-import com.green.greengramver1.user.model.UserSignInRes;
-import com.green.greengramver1.user.model.UserSignUpReq;
+import com.green.greengramver1.user.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
